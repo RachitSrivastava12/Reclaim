@@ -23,8 +23,11 @@ On Reactive Lasna, [OmniCronProbe](https://lasna-omni.reactscan.net/address/0x2e
 
 Requires Foundry and the checked-out `lib/reactive-lib-omni` and `lib/forge-std` dependencies. Initialize Git submodules if needed.
 
+Future local builds, CI checks and deployments use the pinned Foundry configuration in `foundry.toml`: Solidity 0.8.35 with the optimizer enabled at 200 runs. Run `forge build --sizes` before deployment to enforce the EIP-170 runtime limit. The addresses and transaction evidence below belong to earlier deployments built under the previous, unpinned configuration; this change does not alter or reclassify those historical contracts.
+
 ```sh
 forge build
+forge build --sizes
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org forge test -vv
 forge fmt --check
 ```

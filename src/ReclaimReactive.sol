@@ -44,7 +44,8 @@ contract ReclaimReactive is AbstractReactive {
         // Reject unrelated, malformed and non-LOG3 records without reverting.
         if (
             log_.chainId != originChainId || log_.contractAddress != originContract
-                || log_.topic0 != POSITION_ELIGIBLE_TOPIC || log_.opCode != 3 || destination == address(0)
+                || log_.topic0 != POSITION_ELIGIBLE_TOPIC || log_.opCode != 3 || log_.topic2 >> 160 != 0
+                || log_.topic3 != 0 || log_.data.length != 0 || destination == address(0)
         ) return;
 
         bytes32 positionId = bytes32(log_.topic1);
