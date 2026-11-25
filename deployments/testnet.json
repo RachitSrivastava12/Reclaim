@@ -14,8 +14,18 @@
         "ReclaimReceiver": {
           "address": "0x66d166f509f58bbC71Fd61443Ef7BB498cF8921E",
           "deploymentTx": "0xaac9e0c557497a5a5461355302a76fc68fbef45e20aa172033bbbcbae72fadd4"
+        },
+        "SablierRecoveryExecutor": {
+          "address": "0x94A5898f1c411051313e0572e577FeA5F667C9B1"
+        },
+        "ReclaimDemoToken": {
+          "address": "0x2f3A8806D9094dD7866e04635B400F65587e5Fb2",
+          "symbol": "rUSD",
+          "decimals": 18,
+          "monetaryValue": false
         }
       },
+      "sablierLockup": "0xA65A1ecEf02C2B9BDc604951c6A6D02335D4532e",
       "receiverFundingTx": "0xe29394a278d1ef53465453d5383e7f2d6f7450baa751120ee0535247beb7f6ff",
       "receiverFundingWei": "2000000000000000"
     },
@@ -28,6 +38,9 @@
         "ReclaimReactive": {
           "address": "0xf5AcBACf7D8eE453Db4a5B714226E1526d773c3C",
           "deploymentTx": "0xf89d3927c89215e5f2618e816166c857e3f269d92da49c7b13ee0eadea77f1f4"
+        },
+        "SablierRecoveryReactive": {
+          "address": "0xc9af1EaA0a212A425aCC5efC5752807F5181C019"
         }
       },
       "configurationTx": "0x614ed941f55f2d3f61d51890eb0f1a902a3e017e78879a085001dfdd83a74547",
@@ -50,5 +63,30 @@
     "callbackTxSender": "0xF9F61C1D3325e2d4aBb55dd9e0Db84F7A0D914B0",
     "callbackGasUsed": 111079,
     "receiverProcessedCount": 1
+  },
+  "firstLiveSablierRecovery": {
+    "streamId": 213,
+    "employer": "0xB5BD5F9927ac96213C416662Cc9CFc192c12bA24",
+    "employee": "0xD88f3b7479C3555b3c6d24D9EABBcCE18ec0dDd3",
+    "creationTx": "0x75006514a3de2fc42397b6e12db5fac5d4443191af1daa3a1e51a06c4bca4114",
+    "enrollmentTx": "0x4dccf559924a51deca775c659d7a7f9d07c1c2d71ce358db431d53f7c95112e4",
+    "cancellationTx": "0x94690db4dfd48c5c589143b10394bff0705fb4b08b47782f0ed3c4b192950746",
+    "cancellationReactiveTx": "0xe711993a621cb42bd041e3429de86329a0ef10b752eeed216b09b89a55ac81cf",
+    "recoveryCallbackTx": "0x49e72e70bb6a691c9dd4bcb2072bb83b08698dfce36d4053a526738ee4ff3d65",
+    "completionReactiveTx": "0xe6f37134ad32661167d9a55fa405a8eb64fdbee4a9f4aa0b904477df9ae1f0e0",
+    "recoveryEventId": "0x288dc2c215b4fd087d2bdebda5ce62b3738d88273233484f02c3faae169c3d0c",
+    "cancellationLogIndex": 1,
+    "completionLogIndex": 6,
+    "depositedTokenUnits": "300000000000000000000",
+    "refundedTokenUnits": "265833333333333333334",
+    "recoveredTokenUnits": "34166666666666666666",
+    "sablierWithdrawalFeeWei": "0",
+    "feeCreditWei": "500000000000000",
+    "cancellationBlock": 63326922,
+    "cancellationReactiveBlock": 9196354,
+    "recoveryCallbackBlock": 63326926,
+    "completionReactiveBlock": 9196355,
+    "cancellationBlockTimestamp": "0x6b067cb5",
+    "recoveryCallbackBlockTimestamp": "0x6b067cb6"
   }
 }
