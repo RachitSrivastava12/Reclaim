@@ -16,8 +16,7 @@ contract ReclaimReactive is AbstractReactive {
     address public immutable originContract;
     address public destination;
 
-    uint256 public constant POSITION_ELIGIBLE_TOPIC =
-        uint256(keccak256("PositionEligible(bytes32,address)"));
+    uint256 public constant POSITION_ELIGIBLE_TOPIC = uint256(keccak256("PositionEligible(bytes32,address)"));
 
     event DestinationConfigured(address indexed destination);
     event RecoveryRequested(bytes32 indexed eventId, bytes32 indexed positionId, bytes32 indexed originTxHash);
@@ -29,8 +28,7 @@ contract ReclaimReactive is AbstractReactive {
         originContract = originContract_;
 
         SYSTEM.subscribe(
-            originChainId_, originContract_, POSITION_ELIGIBLE_TOPIC,
-            REACTIVE_IGNORE, REACTIVE_IGNORE, REACTIVE_IGNORE
+            originChainId_, originContract_, POSITION_ELIGIBLE_TOPIC, REACTIVE_IGNORE, REACTIVE_IGNORE, REACTIVE_IGNORE
         );
     }
 
@@ -45,11 +43,8 @@ contract ReclaimReactive is AbstractReactive {
     function react(LogRecord calldata log_) external onlySystem {
         // Reject unrelated, malformed and non-LOG3 records without reverting.
         if (
-            log_.chainId != originChainId ||
-            log_.contractAddress != originContract ||
-            log_.topic0 != POSITION_ELIGIBLE_TOPIC ||
-            log_.opCode != 3 ||
-            destination == address(0)
+            log_.chainId != originChainId || log_.contractAddress != originContract
+                || log_.topic0 != POSITION_ELIGIBLE_TOPIC || log_.opCode != 3 || destination == address(0)
         ) return;
 
         bytes32 positionId = bytes32(log_.topic1);
@@ -57,23 +52,20 @@ contract ReclaimReactive is AbstractReactive {
         if (beneficiary == address(0)) return;
 
         // txHash alone is NOT unique across multiple logs in the same transaction.
-        bytes32 eventId = keccak256(abi.encode(
-            log_.chainId, log_.contractAddress, log_.txHash, log_.logIndex
-        ));
+        bytes32 eventId = keccak256(abi.encode(log_.chainId, log_.contractAddress, log_.txHash, log_.logIndex));
         bytes32 originTxHash = bytes32(log_.txHash);
 
-        bytes memory payload = abi.encodeCall(
-            ReclaimReceiver.record,
-            (address(0), eventId, positionId, beneficiary, originTxHash)
+        bytes memory payload =
+            abi.encodeCall(ReclaimReceiver.record, (address(0), eventId, positionId, beneficiary, originTxHash));
+        SYSTEM.requestCallbackV_1_0(
+            ISystemContract.CallbackConfiguration_V_1_0({
+                chainId: originChainId, recipient: destination, gasLimit: 500_000, payload: payload
+            })
         );
-        SYSTEM.requestCallbackV_1_0(ISystemContract.CallbackConfiguration_V_1_0({
-            chainId: originChainId,
-            recipient: destination,
-            gasLimit: 500_000,
-            payload: payload
-        }));
         emit RecoveryRequested(eventId, positionId, originTxHash);
     }
 
-    function coverDebt() external { _coverDebt(); }
+    function coverDebt() external {
+        _coverDebt();
+    }
 }

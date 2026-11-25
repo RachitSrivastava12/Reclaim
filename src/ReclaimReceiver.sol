@@ -10,10 +10,7 @@ contract ReclaimReceiver is AbstractCallback {
     uint256 public processedCount;
 
     event RecoveryObserved(
-        bytes32 indexed eventId,
-        bytes32 indexed positionId,
-        address indexed beneficiary,
-        bytes32 originTxHash
+        bytes32 indexed eventId, bytes32 indexed positionId, address indexed beneficiary, bytes32 originTxHash
     );
 
     constructor(IPayable callbackProxy, address reactiveSender)
@@ -30,9 +27,13 @@ contract ReclaimReceiver is AbstractCallback {
     ) external onlyServiceProvider onlyCallbackSender(reactiveSender) {
         if (processed[eventId]) return; // duplicate delivery must not change state twice
         processed[eventId] = true;
-        unchecked { ++processedCount; }
+        unchecked {
+            ++processedCount;
+        }
         emit RecoveryObserved(eventId, positionId, beneficiary, originTxHash);
     }
 
-    function coverDebt() external { _coverDebt(); }
+    function coverDebt() external {
+        _coverDebt();
+    }
 }
