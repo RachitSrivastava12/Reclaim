@@ -100,14 +100,14 @@ contract SablierRecoveryForkTest is Test {
         uint256 streamId = IRealSablierLinear(SABLIER)
             .createWithDurationsLL(
                 IRealSablierLinear.CreateWithDurations({
-                sender: SENDER,
-                recipient: RECIPIENT,
-                depositAmount: 300 ether,
-                token: address(token),
-                cancelable: true,
-                transferable: false,
-                shape: ""
-            }),
+                    sender: SENDER,
+                    recipient: RECIPIENT,
+                    depositAmount: 300 ether,
+                    token: address(token),
+                    cancelable: true,
+                    transferable: false,
+                    shape: ""
+                }),
                 IRealSablierLinear.UnlockAmounts({start: 0, cliff: 0}),
                 1,
                 IRealSablierLinear.Durations({cliff: 0, total: 300})
