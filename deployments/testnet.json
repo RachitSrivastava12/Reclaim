@@ -1,0 +1,54 @@
+{
+  "deployer": "0xB5BD5F9927ac96213C416662Cc9CFc192c12bA24",
+  "networks": {
+    "baseSepolia": {
+      "chainId": 84532,
+      "rpcUrl": "https://sepolia.base.org",
+      "explorerUrl": "https://sepolia.basescan.org",
+      "callbackProxy": "0x476F44b11F5C942c58f4c8E3d0300E5710743585",
+      "contracts": {
+        "RecoverySignal": {
+          "address": "0x0397891a1fEC35C0f7A2bB7B9a7Aa552f62B346E",
+          "deploymentTx": "0xdd0540bb2dc2c5b8578d7068d061ae12817cde0a09c9fbba17faa51624a522a1"
+        },
+        "ReclaimReceiver": {
+          "address": "0x66d166f509f58bbC71Fd61443Ef7BB498cF8921E",
+          "deploymentTx": "0xaac9e0c557497a5a5461355302a76fc68fbef45e20aa172033bbbcbae72fadd4"
+        }
+      },
+      "receiverFundingTx": "0xe29394a278d1ef53465453d5383e7f2d6f7450baa751120ee0535247beb7f6ff",
+      "receiverFundingWei": "2000000000000000"
+    },
+    "reactiveLasna": {
+      "chainId": 5318007,
+      "rpcUrl": "https://lasna-rpc.rnk.dev/",
+      "explorerUrl": "https://lasna-omni.reactscan.net",
+      "systemContract": "0x8888888888888888888888888888888888888888",
+      "contracts": {
+        "ReclaimReactive": {
+          "address": "0xf5AcBACf7D8eE453Db4a5B714226E1526d773c3C",
+          "deploymentTx": "0xf89d3927c89215e5f2618e816166c857e3f269d92da49c7b13ee0eadea77f1f4"
+        }
+      },
+      "configurationTx": "0x614ed941f55f2d3f61d51890eb0f1a902a3e017e78879a085001dfdd83a74547",
+      "coordinatorFundingTx": "0x794ca3616bd6cc44f5fa3cb4854b5415f1c5f4cda0f8ac431256c9b07c385143",
+      "coordinatorFundingWei": "100000000000000000"
+    }
+  },
+  "firstLiveExecution": {
+    "originTx": "0x2779b675904b4f2f7f7d2a22cb2df34ed5f3112a799d5248732642ebef20c114",
+    "reactiveTx": "0x5f547f49be9154bfa6be974608144a1e23bd3e27920f4b2be3759398e0dd5933",
+    "callbackTx": "0x8c4aa27789f0e43a2e9fda09b458d8be9ee118db06b9e879734ccd3525c35a52",
+    "positionId": "0x7ef5def7caef1fb1644264761a76b0359ecf9219434ae0225dd64a270510301a",
+    "eventId": "0x5e11337b7573b221fe7c17a65ece67de34024d30c1d627705be96971b8a7d5ab",
+    "beneficiary": "0xB5BD5F9927ac96213C416662Cc9CFc192c12bA24",
+    "originBlock": 63299610,
+    "reactiveBlock": 9191333,
+    "callbackBlock": 63299614,
+    "originBlockTimestamp": "0x6b06675e",
+    "callbackBlockTimestamp": "0x6b06675f",
+    "callbackTxSender": "0xF9F61C1D3325e2d4aBb55dd9e0Db84F7A0D914B0",
+    "callbackGasUsed": 111079,
+    "receiverProcessedCount": 1
+  }
+}
