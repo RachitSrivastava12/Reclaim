@@ -41,6 +41,11 @@
         },
         "SablierRecoveryReactive": {
           "address": "0xc9af1EaA0a212A425aCC5efC5752807F5181C019"
+        },
+        "OmniCronProbe": {
+          "address": "0x2eCAB99a82A3aFF9682Fe4a5A3E333B2636Bc68D",
+          "deploymentTx": "0xf5b6ef39ddd1fc3140a71c2f5dee723c72a1e74240aa14d9cfc37ff335011690",
+          "deploymentBlock": 9198601
         }
       },
       "configurationTx": "0x614ed941f55f2d3f61d51890eb0f1a902a3e017e78879a085001dfdd83a74547",
@@ -63,6 +68,41 @@
     "callbackTxSender": "0xF9F61C1D3325e2d4aBb55dd9e0Db84F7A0D914B0",
     "callbackGasUsed": 111079,
     "receiverProcessedCount": 1
+  },
+  "firstLiveCronDelivery": {
+    "probe": "0x2eCAB99a82A3aFF9682Fe4a5A3E333B2636Bc68D",
+    "fundingTx": "0x82137f6b7ad2e721e97471f017a66cd87112616ef4240a0b40c0e2f6efdb0ca2",
+    "fundingBlock": 9198897,
+    "fundingWei": "100000000000000000",
+    "deliveries": [
+      {
+        "cronBlock": 9198700,
+        "cronTx": "0x89c2947e0209b861ae0812fdf801c3fed430d5adbf30c9b85e183bd5282d2526",
+        "cronLogIndex": 2,
+        "reactionTx": "0x4eada80a869328410042d2fe18e6fd03ac2940c7226eeff45c9dd7dc325745fd",
+        "reactionBlock": 9198701
+      },
+      {
+        "cronBlock": 9198900,
+        "cronTx": "0x2103ae574db1f622408bf950c55c9765e1b64240c84c71d6d5431756b9b0a180",
+        "cronLogIndex": 2,
+        "reactionTx": "0x57bc20d807fb75d5cd6b02b66708190e5c0ebdafb1466def49f76b42809bc54a",
+        "reactionBlock": 9198901
+      },
+      {
+        "cronBlock": 9199000,
+        "cronTx": "0x01e376db9cec758c8aee3020d8be1c6bfa9fe61cfc1cdf2574bb6a70c8587684",
+        "cronLogIndex": 2,
+        "reactionTx": "0x562badf997524210327fe8054f1b7046baf5ea9aa8fc23e6295ddb0b704b50e3",
+        "reactionBlock": 9199001
+      }
+    ],
+    "shutdownTx": "0x562badf997524210327fe8054f1b7046baf5ea9aa8fc23e6295ddb0b704b50e3",
+    "observationThroughBlock": 9199372,
+    "finalUniqueDeliveries": 3,
+    "finalSubscriptionActive": false,
+    "finalSystemReserveWei": "44969100000000000",
+    "finalSystemDebtWei": "0"
   },
   "firstLiveSablierRecovery": {
     "streamId": 213,
