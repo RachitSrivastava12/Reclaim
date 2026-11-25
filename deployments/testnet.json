@@ -18,6 +18,11 @@
         "SablierRecoveryExecutor": {
           "address": "0x94A5898f1c411051313e0572e577FeA5F667C9B1"
         },
+        "SablierRecoveryExecutorV2": {
+          "address": "0x1B5E99E9FE6d75AcCC6983ac28ffDCD97bc6553B",
+          "deploymentTx": "0x08cb307b22349db321f6ec7665cf2cb411a9664323f532b1f0a1487310d2b16c",
+          "deploymentBlock": 63487930
+        },
         "ReclaimDemoToken": {
           "address": "0x2f3A8806D9094dD7866e04635B400F65587e5Fb2",
           "symbol": "rUSD",
@@ -41,6 +46,11 @@
         },
         "SablierRecoveryReactive": {
           "address": "0xc9af1EaA0a212A425aCC5efC5752807F5181C019"
+        },
+        "SablierRecoveryReactiveV2": {
+          "address": "0xA219Ef314436207E5c242f89ad02fe1Fc71B6568",
+          "deploymentTx": "0x2fadfc0a64986bf9e0b8f27324320f4475cb9e8614204197b92dfcc569e3243e",
+          "deploymentBlock": 9225150
         },
         "OmniCronProbe": {
           "address": "0x2eCAB99a82A3aFF9682Fe4a5A3E333B2636Bc68D",
@@ -128,5 +138,73 @@
     "completionReactiveBlock": 9196355,
     "cancellationBlockTimestamp": "0x6b067cb5",
     "recoveryCallbackBlockTimestamp": "0x6b067cb6"
+  },
+  "firstLiveMaturityRecoveryV2": {
+    "streamId": 214,
+    "employer": "0xB5BD5F9927ac96213C416662Cc9CFc192c12bA24",
+    "employee": "0xD88f3b7479C3555b3c6d24D9EABBcCE18ec0dDd3",
+    "coordinator": "0xA219Ef314436207E5c242f89ad02fe1Fc71B6568",
+    "coordinatorDeploymentTx": "0x2fadfc0a64986bf9e0b8f27324320f4475cb9e8614204197b92dfcc569e3243e",
+    "coordinatorDeploymentBlock": 9225150,
+    "coordinatorFunding": [
+      { "tx": "0x89b8af1e4a2e1f245881a5e164007796e52657eb55533438230d356e8f5774a9", "block": 9225261, "wei": "100000000000000000" },
+      { "tx": "0xe835244eba88d925e21511293f806d754f61948d9803312c7058f4918bac60a3", "block": 9225889, "wei": "400000000000000000" }
+    ],
+    "executor": "0x1B5E99E9FE6d75AcCC6983ac28ffDCD97bc6553B",
+    "executorDeploymentTx": "0x08cb307b22349db321f6ec7665cf2cb411a9664323f532b1f0a1487310d2b16c",
+    "executorDeploymentBlock": 63487930,
+    "executorFundingTx": "0x9336622205a60c9c66805692af0e4d089775b4e81688b44c5d1c86382606786e",
+    "executorFundingBlock": 63489251,
+    "executorCallbackReserveFundingWei": "1000000000000000",
+    "proxyFundingTx": "0x8bc9d527facc8960ba80c21b6f8d8403eab882468d554e75161d5e3db8a34d12",
+    "proxyFundingBlock": 63489199,
+    "proxyFundingWei": "2000000000000000",
+    "destinationConfigurationTx": "0x4727115b4c48b49f380258fee2ca81327bac83e598a65b675d9b30a9b1490a82",
+    "callbackBudgetTx": "0xf4562f045b4c6d13d948a05a74e4b6b649ccaf2dca2d65fee5263a9a7fd58b72",
+    "callbackBudget": 3,
+    "streamCreationTx": "0x25c52a0a8a02abbd53a7d2f93d452afe1789870955087b8a738ad43fc335ffe1",
+    "streamCreationBlock": 63490187,
+    "operatorAdmissionTx": "0xdefae55b7779b8273b99d382d5bae41d6960638746ba96265b56f06b13a34de0",
+    "policyEnrollmentTx": "0x62e0485345964761264387aa7a4bb8180034b790667eab1f80a2116b9dbe8573",
+    "policyEnrollmentLogIndex": 15,
+    "enrollmentReactiveTx": "0x32dc0a8f2b60670d785f811d174cd3fdf916c91b2aef0d5affa0f345f5a63694",
+    "enrollmentReactiveBlock": 9226737,
+    "cronOriginTx": "0xeedc97b3954f0e0a9adafc92ad5c25792d0160b0f6dc9dcf45be27f4379a86bd",
+    "cronOriginBlock": 9227200,
+    "cronOriginLogIndex": 2,
+    "callbackRequestedTx": "0xca18184b5c276fe714ce87b4659b6f06abdb707e9d280fa698b3646ab3e10093",
+    "callbackRequestedBlock": 9227201,
+    "eventId": "0xca72c6636924786f7aee6cd4bca96e60b5b91d38b86ebf3cb55bc7a76f8d6b95",
+    "callbackTx": "0xa0a1649e642fbfe526a432d1ffe660786d8dcaef2b81391beb91792029aa50e9",
+    "callbackBlock": 63493959,
+    "recoverySucceededLogIndex": 88,
+    "policyCompletedLogIndex": 89,
+    "recoveryAcknowledgementTx": "0xc8e79cbe7785c279efdd4a17101c914664241a56bfb79b048cdbf4f204b50e71",
+    "completionAcknowledgementTx": "0xe06cf6d70844e0371fc9f138be79017bd54972171c8cd6e8bb135978569c4ae8",
+    "depositedTokenUnits": "300000000000000000000",
+    "recoveredTokenUnits": "300000000000000000000",
+    "employeeBalanceBeforeTokenUnits": "34166666666666666666",
+    "employeeBalanceAfterTokenUnits": "334166666666666666666",
+    "feeCreditWei": "500000000000000",
+    "sablierWithdrawalFeeWei": "0",
+    "callbacksSubmitted": 1,
+    "finalCoordinatorState": "Completed",
+    "observationThroughBaseBlock": 63507572,
+    "observationThroughLasnaBlock": 9229619,
+    "lastChargedCronReactionTx": "0x57c96d087dd75d32543d196a3734adb40c6432f37707f636af27d46b1d94f81d",
+    "lastChargedCronReactionBlock": 9228101,
+    "preShutdownSystemReserveWei": "0",
+    "preShutdownSystemDebtWei": "3871900000000000",
+    "retirementReason": "Continuous idle Cron100 execution consumes testnet funds",
+    "shutdownTx": "0xb20f065c4a9f03163be9ae2fe7337461e08e037728666cb264909cd218a78cba",
+    "shutdownBlock": 9230858,
+    "subscriptionsRemoved": 8,
+    "debtSettlementTx": "0x99ba6821cc5f05b1ea0f27fa91c2271ba1924e95ec42067512a7395b20f1ae8b",
+    "debtSettlementBlock": 9231000,
+    "debtSettlementWei": "3871900000000000",
+    "finalCoordinatorShutdown": true,
+    "finalCoordinatorSystemReserveWei": "0",
+    "finalCoordinatorSystemDebtWei": "0",
+    "newAutonomousRecoveriesRequireFreshCoordinatorAndExecutor": true
   }
 }
