@@ -36,11 +36,14 @@ contract MockSablierLockup is ISablierLockup {
     mapping(uint256 => Stream) public streams;
     RecoveryTestToken public token;
     uint256 public fee;
+    uint40 public endTime;
     bool public failWithdraw;
+    bool public failDepletedReadAfterWithdrawal;
     address public reentryTarget;
     bytes public reentryPayload;
     bool public reentryAttempted;
     bool public reentrySucceeded;
+    bytes public reentryReturnData;
 
     constructor(RecoveryTestToken token_) {
         token = token_;
@@ -57,6 +60,10 @@ contract MockSablierLockup is ISablierLockup {
 
     function setFailWithdraw(bool value) external {
         failWithdraw = value;
+    }
+
+    function setFailDepletedReadAfterWithdrawal(bool value) external {
+        failDepletedReadAfterWithdrawal = value;
     }
 
     function setRecipient(uint256 id, address recipient) external {
@@ -89,13 +96,13 @@ contract MockSablierLockup is ISablierLockup {
     function withdraw(uint256 id, address to, uint128 amount) external payable {
         Stream storage stream = streams[id];
         require(!failWithdraw, "protocol revert");
-        require(stream.canceled && !stream.depleted, "state");
+        require((stream.canceled || (endTime != 0 && block.timestamp >= endTime)) && !stream.depleted, "state");
         require(to == stream.recipient, "wrong payout");
         require(msg.value >= fee, "fee");
         require(amount > 0 && amount <= stream.withdrawable, "amount");
         if (reentryTarget != address(0)) {
             reentryAttempted = true;
-            (reentrySucceeded,) = reentryTarget.call(reentryPayload);
+            (reentrySucceeded, reentryReturnData) = reentryTarget.call(reentryPayload);
         }
         stream.withdrawable -= amount;
         if (stream.withdrawable == 0) stream.depleted = true;
@@ -110,6 +117,14 @@ contract MockSablierLockup is ISablierLockup {
         return streams[id].recipient;
     }
 
+    function getEndTime(uint256) external view returns (uint40) {
+        return endTime;
+    }
+
+    function setEndTime(uint40 value) external {
+        endTime = value;
+    }
+
     function getUnderlyingToken(uint256) external view returns (address) {
         return address(token);
     }
@@ -119,6 +134,7 @@ contract MockSablierLockup is ISablierLockup {
     }
 
     function isDepleted(uint256 id) external view returns (bool) {
+        require(!(failDepletedReadAfterWithdrawal && streams[id].depleted), "depletion read failed");
         return streams[id].depleted;
     }
 

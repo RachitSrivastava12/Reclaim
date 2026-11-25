@@ -5,6 +5,7 @@ import {Test} from "forge-std/Test.sol";
 import {IPayable} from "@reactive/src/interfaces/IPayable.sol";
 import {ISablierLockup} from "../src/ISablierLockup.sol";
 import {SablierRecoveryExecutor} from "../src/SablierRecoveryExecutor.sol";
+import {SablierRecoveryExecutorV2} from "../src/SablierRecoveryExecutorV2.sol";
 
 contract ForkTestToken {
     string public constant name = "RECLAIM Fork Test Token";
@@ -116,9 +117,11 @@ contract SablierRecoveryForkTest is Test {
 
         vm.prank(RECIPIENT);
         executor.enroll{value: 0.01 ether}(streamId, 0.01 ether);
+        uint40 originalEndTime = ISablierLockup(SABLIER).getEndTime(streamId);
         vm.warp(block.timestamp + 120);
         vm.prank(SENDER);
         IRealSablierLinear(SABLIER).cancel(streamId);
+        assertEq(ISablierLockup(SABLIER).getEndTime(streamId), originalEndTime);
 
         uint128 amount = ISablierLockup(SABLIER).withdrawableAmountOf(streamId);
         assertGt(amount, 0);
@@ -132,6 +135,54 @@ contract SablierRecoveryForkTest is Test {
         (,, uint256 reserve,,, bool active) = executor.policies(streamId);
         assertFalse(active);
         assertEq(reserve, 0);
+        assertEq(executor.feeCredits(RECIPIENT), address(executor).balance);
+    }
+
+    function testActualSablierMaturityRecoveryOnLocalFork() public {
+        ForkTestToken token = new ForkTestToken();
+        SablierRecoveryExecutorV2 executor =
+            new SablierRecoveryExecutorV2(IPayable(payable(PROXY)), REACTIVE, ISablierLockup(SABLIER));
+        token.mint(SENDER, 300 ether);
+        vm.deal(SENDER, 1 ether);
+        vm.deal(RECIPIENT, 1 ether);
+
+        vm.startPrank(SENDER);
+        token.approve(SABLIER, 300 ether);
+        uint256 streamId = IRealSablierLinear(SABLIER)
+            .createWithDurationsLL(
+                IRealSablierLinear.CreateWithDurations({
+                    sender: SENDER,
+                    recipient: RECIPIENT,
+                    depositAmount: 300 ether,
+                    token: address(token),
+                    cancelable: true,
+                    transferable: false,
+                    shape: ""
+                }),
+                IRealSablierLinear.UnlockAmounts({start: 0, cliff: 0}),
+                1,
+                IRealSablierLinear.Durations({cliff: 0, total: 30})
+            );
+        vm.stopPrank();
+
+        uint40 endTime = ISablierLockup(SABLIER).getEndTime(streamId);
+        assertGt(endTime, block.timestamp);
+        vm.prank(RECIPIENT);
+        executor.enroll{value: 0.01 ether}(streamId, 0.01 ether, SablierRecoveryExecutorV2.Mode.Maturity);
+        vm.prank(PROXY);
+        executor.recover(REACTIVE, keccak256("fork premature"), streamId, 1);
+        assertEq(token.balanceOf(RECIPIENT), 0);
+        vm.warp(endTime + 1);
+        assertFalse(ISablierLockup(SABLIER).wasCanceled(streamId));
+        uint128 amount = ISablierLockup(SABLIER).withdrawableAmountOf(streamId);
+        assertEq(amount, 300 ether);
+        vm.prank(PROXY);
+        executor.recover(REACTIVE, keccak256("fork maturity"), streamId, 1);
+        assertEq(token.balanceOf(RECIPIENT), amount);
+        assertEq(token.balanceOf(address(executor)), 0);
+        assertTrue(ISablierLockup(SABLIER).isDepleted(streamId));
+        (,,,,,,, bool active) = executor.policies(streamId);
+        assertFalse(active);
         assertEq(executor.feeCredits(RECIPIENT), address(executor).balance);
     }
 }

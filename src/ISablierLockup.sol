@@ -14,6 +14,7 @@ interface ISablierLockup {
     function withdraw(uint256 streamId, address to, uint128 amount) external payable;
     function withdrawableAmountOf(uint256 streamId) external view returns (uint128);
     function getRecipient(uint256 streamId) external view returns (address);
+    function getEndTime(uint256 streamId) external view returns (uint40);
     function getUnderlyingToken(uint256 streamId) external view returns (address);
     function wasCanceled(uint256 streamId) external view returns (bool);
     function isDepleted(uint256 streamId) external view returns (bool);
