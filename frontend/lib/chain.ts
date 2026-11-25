@@ -1,0 +1,15 @@
+import { defineChain, createPublicClient, http } from 'viem';
+import executorAbi from './executor-abi.json';
+import coordinatorAbi from './coordinator-abi.json';
+import sablierAbi from './sablier-abi.json';
+import deployment from './deployments.json';
+export const base = defineChain({ id:84532, name:'Base Sepolia', nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18}, rpcUrls:{default:{http:['https://sepolia.base.org']}}, blockExplorers:{default:{name:'Basescan',url:'https://sepolia.basescan.org'}} });
+export const lasna = defineChain({ id:5318007, name:'Reactive Lasna', nativeCurrency:{name:'Reactive',symbol:'REACT',decimals:18}, rpcUrls:{default:{http:['https://lasna-rpc.rnk.dev/']}}, blockExplorers:{default:{name:'Reactscan',url:'https://lasna-omni.reactscan.net'}} });
+export const address = {executor:deployment.networks.baseSepolia.contracts.SablierRecoveryExecutorV2.address,coordinator:deployment.networks.reactiveLasna.contracts.SablierRecoveryReactiveV2.address,v1Executor:deployment.networks.baseSepolia.contracts.SablierRecoveryExecutor.address,v1Coordinator:deployment.networks.reactiveLasna.contracts.SablierRecoveryReactive.address,sablier:deployment.networks.baseSepolia.sablierLockup,token:deployment.networks.baseSepolia.contracts.ReclaimDemoToken.address,proxy:deployment.networks.baseSepolia.callbackProxy,system:deployment.networks.reactiveLasna.systemContract} as const;
+export const baseClient=createPublicClient({chain:base,transport:http(base.rpcUrls.default.http[0],{timeout:12000,retryCount:1})});
+export const lasnaClient=createPublicClient({chain:lasna,transport:http(lasna.rpcUrls.default.http[0],{timeout:12000,retryCount:1})});
+export {executorAbi,coordinatorAbi,sablierAbi};
+export const baseTx=(hash:string)=>`${base.blockExplorers.default.url}/tx/${hash}`;
+export const lasnaTx=(hash:string)=>`${lasna.blockExplorers.default.url}/tx/${hash}`;
+export const short=(v:string)=>v.length>16?`${v.slice(0,8)}…${v.slice(-6)}`:v;
+export const amount=(v:string|bigint, decimals=18, max=6)=>{const n=BigInt(v);const unit=10n**BigInt(decimals);const whole=n/unit;const fraction=(n%unit).toString().padStart(decimals,'0').slice(0,max).replace(/0+$/,'');return `${whole.toLocaleString()}${fraction?'.'+fraction:''}`};
